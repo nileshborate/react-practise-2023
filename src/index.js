@@ -2,23 +2,26 @@ import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import Card from './Card';
+import SeriesData from './SeriesData';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
-    <Card 
-        imgsrc="https://wallpapercave.com/wp/wp4056399.jpg"
-        title="A Netflix Original Series"
-        sname="DARK"
-        link="https://www.netflix.com/in/title/80100172"
-    />
-
-    <Card 
-        imgsrc="https://wallpapercave.com/wp/wp4056399.jpg"
-        title="A Netflix Original Series"
-        sname="DARK"
-        link="https://www.netflix.com/in/title/80100172"
-    />
+  <h1 className='heading_style'>Web Series List</h1>
+    {
+      SeriesData.map((obj) => {
+        console.log(obj)
+        return(
+          <Card 
+          imgsrc={obj.imgsrc}
+          title={obj.title}
+          sname={obj.sname}
+          link={obj.link}
+          />
+        )
+      })
+    }
+    
   </>
 );
 
