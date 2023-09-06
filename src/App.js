@@ -1,18 +1,22 @@
 import React, { useState } from 'react'
 
 const App = () => {
-    let [count,setCount] = useState(3)
-    const IncrementNumber = () => {
-        setCount(++count)
+    let [name,setName] = useState("")
+    const InputEvent = (e) => {
+        console.log("Name :",e.target.name);
+        console.log("Value :",e.target.value);
+        setName(e.target.value)
     }
-    const DecrementNumber = () => {
-        setCount(--count)
+    const ButtonEvent = (e) => {
+        console.log("Button : ",e.target);
     }
   return (
     <>
-        <h1>{count}</h1>
-        <button onClick={IncrementNumber}>Inc</button>
-        <button onClick={DecrementNumber}>Dec</button>
+        <div>
+            <h1>Hello {name}</h1>
+            <input type="text" onChange={InputEvent} name="myname"/> <br /><br />
+            <button onClick={ButtonEvent}>Click Me</button>
+        </div>
     </>
   )
 }
