@@ -1,59 +1,45 @@
 import React, { useState } from 'react'
+import Lists from './components/Lists'
 
 const App = () => {
-    let [fullName,setFullName] = useState({
-        fname : "",
-        lname : "",
-        email:"",
-        mobile:"",
-        pincode:""
-    })
-    let [name,setName] = useState("")
+    
+    const [inputList,setInputList] = useState("")
+    const [items,setItems] = useState([])
 
-    const InputEvent = (e) => {
-        const name = e.target.name
-        const value = e.target.value
-
-        setFullName((preValue) => {
-            return {
-                ...preValue,
-                [name] : value
-            }
-        });
+    const itemEvent = (event) => {
+        setInputList(event.target.value)
     }
-
-    const ButtonEvent = (e) => {
-        //console.log("Button : ",e.target);
-        if(fullName.fname == ""){
-            alert("Please enter First Name")
-        }else
-        if(fullName.lname == ""){
-            alert("Please enter Last Name")
-        }else
-        if(fullName.email == ""){
-            alert("Please enter Email Id")
-        }else
-        if(fullName.mobile == ""){
-            alert("Please enter Mobile")
-        }else
-        if(fullName.pincode == ""){
-            alert("Please enter Pincode")
-        }else
-        {
-            setName(fullName.fname+" "+fullName.lname+" "+fullName.email+" "+fullName.mobile+" "+fullName.pincode)
-        }
+    const buttonEvent = () => {
+        setItems((oldItem) => {
+            return [...oldItem,inputList]
+        })
+        setInputList("")
     }
   return (
     <>
-        <div>
-            <h1>Hello {name}</h1>
-            <input type="text" onChange={InputEvent} name="fname" value={fullName.fname}/> <br /><br />
-            <input type="text" onChange={InputEvent} name="lname" value={fullName.lname}/> <br /><br />
-            <input type="text" onChange={InputEvent} name="email" value={fullName.email}/> <br /><br />
-            <input type="text" onChange={InputEvent} name="mobile" value={fullName.mobile}/> <br /><br />
-            <input type="text" onChange={InputEvent} name="pincode" value={fullName.pincode}/> <br /><br />
-            <button onClick={ButtonEvent}>Click Me</button>
-        </div>
+       <div className='main-div'>
+            <div className='center-div'>
+                <br />
+                <h1>ToDo List</h1>
+                <br />
+                <input type="text" placeholder='Add a Item' onChange={itemEvent} value={inputList}/>
+                <button onClick={buttonEvent}>+</button>
+                {/* <ol>
+                   {
+                    items.map((val)=>{
+                        return <li>{val}</li>
+                    })
+                   }
+                </ol> */}
+                <ol>
+                    {
+                    items.map((val)=>{
+                        return <Lists text={val} />
+                    })
+                   }
+                </ol>
+            </div>
+       </div>
     </>
   )
 }
