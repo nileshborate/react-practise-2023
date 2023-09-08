@@ -9,11 +9,17 @@ const App = () => {
     const itemEvent = (event) => {
         setInputList(event.target.value)
     }
-    const buttonEvent = () => {
+    const addEvent = () => {
         setItems((oldItem) => {
             return [...oldItem,inputList]
         })
         setInputList("")
+    }
+
+    const deleteItem = (id) => {
+        const newData = items.filter((value,index)=>index !== id)
+
+        setItems(newData)
     }
   return (
     <>
@@ -23,7 +29,7 @@ const App = () => {
                 <h1>ToDo List</h1>
                 <br />
                 <input type="text" placeholder='Add a Item' onChange={itemEvent} value={inputList}/>
-                <button onClick={buttonEvent}>+</button>
+                <button onClick={addEvent}>+</button>
                 {/* <ol>
                    {
                     items.map((val)=>{
@@ -33,8 +39,11 @@ const App = () => {
                 </ol> */}
                 <ol>
                     {
-                    items.map((val)=>{
-                        return <Lists text={val} />
+                    items.map((val,index)=>{
+                        return <Lists
+                                    id={index} 
+                                    text={val} 
+                                    delete={deleteItem} />
                     })
                    }
                 </ol>

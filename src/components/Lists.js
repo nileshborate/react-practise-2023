@@ -1,8 +1,14 @@
 import React from 'react'
 
 const Lists = (props) => {
+
   return (
-    <li>{props.text}</li>
+    <div className='todo_style'>
+      <i class="fa-solid fa-circle-xmark" onClick={()=>{
+        props.delete(props.id)
+      }}></i>      
+      <li>{props.text}</li>
+    </div>
   )
 }
 
