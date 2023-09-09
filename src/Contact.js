@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <>
         <div>Contact</div>
-        <button onClick={()=>navigate("/info")}>Go to Info</button>
+        <button onClick={()=>navigate("/info",{state:{val:10,name:'Nilesh'}})}>Go to Info</button>
         
     </>
   )
