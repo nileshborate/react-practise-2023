@@ -1,45 +1,54 @@
-import React, { useState } from 'react'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import CreateNote from './CreateNote'
-import Note from './Note'
+import React, { useEffect, useState } from 'react'
 
 const App = () => {
-  const [listNote,setListNote] = useState([])
 
-  const addNote = (note) => {
-    console.log("add note by app.js :",note);
+  const [data,setData] = useState([]);
 
-    setListNote((prevData)=>{
-      return [...prevData,note]
-    })
+  const getCovidData = async() => {
+    const res = await fetch("https://data.covid19india.org/data.json")
+    const actualData = await res.json()
+    console.log("actual data = ",actualData);
+    setData(actualData.statewise)
   }
 
-  const deleteNote = (id) => {
-    console.log("delete call :",id);
-    const newArray = listNote.filter((obj,index)=>{
-      return index !== id;
-    })
-    setListNote(newArray)
-  }
+  useEffect(()=>{
+    getCovidData();
+  },[])
+
   return (
     <>
-       <Header />
-       <CreateNote passNote = {addNote}/>
-        
+       <h1 className='text-center'>India Covid - 19 Dashborad 2021</h1>
+       <table class="table table-striped">
+        <thead className='table-primary'>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">State Code</th>
+            <th scope="col">Active</th>
+            <th scope="col">Confirmed</th>
+            <th scope="col">Recovered</th>
+            <th scope="col">Deaths</th>
+            <th scope="col">Last Update Time</th>
+          </tr>
+        </thead>
+        <tbody>
         {
-          listNote.map((val,index)=>{
-            return <Note 
-                      id={index}
-                      title={val.title}
-                      content={val.content}
-                      deleteItem = {deleteNote}
-                    />
+          data.map((obj,index)=>{
+            return(
+            <tr>
+            <th scope="row">{index+1}</th>
+            <td>{obj.statecode}</td>
+            <td>{obj.active}</td>
+            <td>{obj.confirmed}</td>
+            <td>{obj.recovered}</td>
+            <td>{obj.deaths}</td>
+            <td>{obj.lastupdatedtime}</td>
+          </tr>
+            )
           })
         }
-       
-     
-       <Footer />
+          
+        </tbody>
+      </table>
     </>
   )
 }
