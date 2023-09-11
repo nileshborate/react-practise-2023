@@ -1,24 +1,20 @@
 import React from 'react'
-import About from './About'
-import Contact from './Contact'
-import Error from './Error'
-import { Route, Routes } from 'react-router-dom'
-import HomePage from './HomePage'
-import Menu from './Menu'
-import Info from './Info'
+import { useDispatch, useSelector } from 'react-redux'
+import { incNumber, decNumber } from './actions'
 
 const App = () => {
-
+  const myState = useSelector((state)=>state.changeNumber)
+  const dispatch = useDispatch()
   return (
     <>
-      <Menu />
-       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/info" element={<Info />} />
-        <Route path="*" element={<Error />} />
-       </Routes>
+     <div className='container'>
+      <h4>Increment and Decrement Counter Example</h4>
+      <div className='quantity'>
+        <button onClick={()=>dispatch(decNumber())}>Minus</button>
+        <input type="text" value={myState}/>
+        <button onClick={()=>dispatch(incNumber())}>Plus</button>
+      </div>
+     </div>
     </>
   )
 }
