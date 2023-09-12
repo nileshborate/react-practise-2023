@@ -1,20 +1,21 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { incNumber, decNumber } from './actions'
+import { ToastContainer } from "react-toastify"
+import Navbar from './components/Navbar'
+import { Route, Routes } from 'react-router-dom'
+import Home from './components/Home'
+import AddContact from './components/AddContact'
+import EditContact from './components/EditContact'
 
 const App = () => {
-  const myState = useSelector((state)=>state.changeNumber)
-  const dispatch = useDispatch()
   return (
     <>
-     <div className='container'>
-      <h4>Increment and Decrement Counter Example</h4>
-      <div className='quantity'>
-        <button onClick={()=>dispatch(decNumber())}>Minus</button>
-        <input type="text" value={myState}/>
-        <button onClick={()=>dispatch(incNumber())}>Plus</button>
-      </div>
-     </div>
+      <ToastContainer />
+      <Navbar />
+      <Routes>
+      <Route path="/" element={<Home/>}></Route>
+      <Route path="/add" element={<AddContact/>}></Route>
+      <Route path="/edit/:id" element={<EditContact />}></Route>
+      </Routes>
     </>
   )
 }

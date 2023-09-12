@@ -1,19 +1,26 @@
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import {  BrowserRouter } from 'react-router-dom'
+import { createStore } from "redux";
+import contactReducer from './redux/reducers/contactReducer';
+import { composeWithDevTools } from 'redux-devtools-extension'
+import { Provider } from 'react-redux';
 import './index.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
-import store from "./store"
-import { Provider } from "react-redux"
+import '../node_modules/react-toastify/dist/ReactToastify.css'
 
-store.subscribe(()=>console.log(store.getState()));
+
+const store = createStore(contactReducer,composeWithDevTools());
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <>
+   
         <Provider store={store}>
-            <App />
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
         </Provider>
-    </>
+   
 );
 
