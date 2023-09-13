@@ -25,6 +25,14 @@ const contactReducer = (state = initialState,action ) => {
         case 'ADD_CONTACT' : 
             state = [...state,action.data]
             return state
+        case 'EDIT_CONTACT':
+            const updateArray = state.map(contact => contact.id == action.data.id ? action.data : contact)
+            state = updateArray
+            return state 
+        case 'DELETE_CONTACT':
+            const filterContact = state.filter(contact => contact.id != action.data ? contact : null)
+            state = filterContact;
+            return state
         default : return state
     }
 }
